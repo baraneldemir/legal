@@ -58,7 +58,7 @@ export default function LandingPage() {
             onFocus={handleFocus}  
             onBlur={handleBlur}    
             placeholder="e.g., 'I want to take a case to court' or 'Which court should I file my claim?'"
-            className="w-full px-4 py-2 pr-10 text-gray-700 transition duration-300 ease-in-out border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 pr-10 text-gray-700 transition duration-300 ease-in-out border border-gray-300 rounded-xl outline-1 outline-gray-900"
           />
           
           {query && (

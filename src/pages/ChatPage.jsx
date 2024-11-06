@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDropzone } from 'react-dropzone';
+import { MdSend } from "react-icons/md";
 
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  
 
   // Predefined bot responses
   const botResponses = [
@@ -113,6 +116,26 @@ export default function ChatPage() {
     }
   }, [messages]); // Triggered when messages array changes
 
+
+  const onDrop = (acceptedFiles) => {
+    // You can handle the uploaded files here
+    // For now, we will just display their names
+    acceptedFiles.forEach(file => {
+      const fileMessage = {
+        text: `File received, further questions will be answered according to: ${file.name}`,
+        timestamp: new Date(),
+        isUser: false,
+      };
+      setMessages(prevMessages => [...prevMessages, fileMessage]);
+    });
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop, // Set the onDrop handler to handle dropped files
+    accept: '.pdf,.docx,.jpg,.png', // Acceptable file types
+    multiple: false, // Disable multiple file drops if desired
+  });
+
   return (
     <div className="flex flex-col bg-slate-100" style={{ minHeight: 'calc(100vh - 4rem)' }}>
       {/* Centered Container */}
@@ -123,7 +146,7 @@ export default function ChatPage() {
           <input
             type="text"
             placeholder="Search..."
-            className="w-1/3 px-4 py-2 border border-gray-300 rounded-lg"
+            className="w-1/3 px-4 py-2 border border-gray-300 rounded-lg outline-1 outline-gray-900"
           />
         </div>
   
@@ -161,16 +184,27 @@ export default function ChatPage() {
               </div>
   
               <div className="flex items-center mt-4">
+              <div
+                  {...getRootProps()} // Drag and drop area
+                  className="flex items-center justify-center w-10 h-10 mr-2 transition-all duration-700 bg-gray-800 rounded-full cursor-pointer hover:scale-125"
+                >
+                  <input {...getInputProps()} />
+                  <span className="text-white">🗂️</span>
+                </div>
                 <input
                   type="text"
-                  placeholder="Type a message..."
+                  placeholder="Ask a question to MyLegalAi"
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg"
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg outline-1 outline-gray-900"
                 />
-                <button onClick={handleSendMessage} className="px-4 py-2 ml-2 text-white bg-gray-900 rounded-lg hover:bg-slate-600">
-                  Send
+                <button
+                  onClick={handleSendMessage}
+                  className="flex items-center justify-center w-10 h-10 pl-1 ml-1 text-white bg-gray-900 rounded-full hover:bg-slate-600"
+                >
+                  <MdSend className="text-2xl" />
                 </button>
+
               </div>
             </div>
   

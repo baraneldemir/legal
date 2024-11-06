@@ -18,7 +18,7 @@ export default function SessionsPage() {
         <input
           type="text"
           placeholder="Search..."
-          className="w-1/3 px-4 py-2 border border-gray-300 rounded-lg"
+          className="w-1/3 px-4 py-2 border border-gray-300 rounded-lg outline-1 outline-gray-900"
         />
       </div>
 

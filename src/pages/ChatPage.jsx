@@ -32,6 +32,12 @@ export default function ChatPage() {
     "Remember: A contract is only as good as the parties involved—unless it’s a pizza contract. That’s solid gold in my book!"
   ];
 
+  const specialResponses = {
+    "sik": "Let's keep the conversation respectful, please.",
+    "fuck": "Please refrain from using inappropriate language. I'm here to help with legal matters.",
+    "am": "It seems like you're unsure. Feel free to ask for clarification on any legal question."
+  };
+
   // Reference to the message container to scroll it into view
   const messagesEndRef = useRef(null);
 
@@ -52,7 +58,7 @@ export default function ChatPage() {
       setNewMessage("");
 
       // Check if the message contains 'sik'
-      if (newMessage.toLowerCase().includes("sik","fuck","am")) {
+      if (newMessage.toLowerCase().includes("sik","fuck")) {
         // Add the special bot response
         setTimeout(() => {
           const botMessage = {

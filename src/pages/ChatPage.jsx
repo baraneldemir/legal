@@ -64,119 +64,130 @@ export default function ChatPage() {
   const botTimeoutRef = useRef(null); // Ref to store timeout ID
   const messagesEndRef = useRef(null);
 
-useEffect(() => {
-  // Initial bot message
-  setMessages([{ text: botResponses[0], timestamp: new Date(), isUser: false }]);
+  useEffect(() => {
+    // Initial bot message
+    setMessages([{ text: botResponses[0], timestamp: new Date(), isUser: false }]);
 
-  // Cleanup on unmount
-  return () => clearTimeout(botTimeoutRef.current);
-}, []);
+    // Cleanup on unmount
+    return () => clearTimeout(botTimeoutRef.current);
+  }, []);
 
-const handleSendMessage = () => {
-  if (newMessage.trim()) {
-    const userMessage = { text: newMessage, timestamp: new Date(), isUser: true };
-    setMessages((prev) => [...prev, userMessage]);
-    setNewMessage("");
+  const handleSendMessage = () => {
+    if (newMessage.trim()) {
+      const userMessage = { text: newMessage, timestamp: new Date(), isUser: true };
+      setMessages((prev) => [...prev, userMessage]);
+      setNewMessage("");
 
-    const containsOffensiveWord = offensiveWords.some((word) =>
-      newMessage.toLowerCase().includes(word)
-    );
-    const responseList = containsOffensiveWord ? filteredBotResponses : botResponses;
+      const containsOffensiveWord = offensiveWords.some((word) =>
+        newMessage.toLowerCase().includes(word)
+      );
+      const responseList = containsOffensiveWord ? filteredBotResponses : botResponses;
 
-    // Clear any existing timeout
-    clearTimeout(botTimeoutRef.current);
+      // Clear any existing timeout
+      clearTimeout(botTimeoutRef.current);
 
-    // Set response timeout
-    botTimeoutRef.current = setTimeout(() => {
-      const botMessage = {
-        text: responseList[Math.floor(Math.random() * responseList.length)],
-        timestamp: new Date(),
-        isUser: false,
-      };
-      setMessages((prev) => [...prev, botMessage]);
-    }, 1000);
-  }
-};
+      // Set response timeout
+      botTimeoutRef.current = setTimeout(() => {
+        const botMessage = {
+          text: responseList[Math.floor(Math.random() * responseList.length)],
+          timestamp: new Date(),
+          isUser: false,
+        };
+        setMessages((prev) => [...prev, botMessage]);
+      }, 1000);
+    }
+  };
 
-useEffect(() => {
-  messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-}, [messages]);
+  useEffect(() => {
+    // Auto-scroll to the latest message
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
 
-return (
-  <div className="flex items-center justify-center bg-slate-100" style={{ minHeight: 'calc(100vh - 4rem)' }}>
-    <div className="w-full max-w-6xl mx-auto">
-      {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-300">
-        <Link to='/sessions' className="cursor-pointer next-page-triangle hover:scale-125"></Link>
-        <input
-          type="text"
-          placeholder="Search..."
-          className="w-1/3 px-4 py-2 border rounded-lg"
-        />
-      </div>
+    // Set timeout to remove each message after 5 seconds
+    if (messages.length > 0) {
+      const removeTimeout = setTimeout(() => {
+        setMessages((prev) => prev.slice(1));
+      }, 50000); // Adjust delay as needed
 
-      <div className="flex items-center justify-center flex-1 p-4">
-        <div className="grid w-full grid-cols-1 gap-8 lg:grid-cols-2">
-          {/* Chat Box */}
-          <div className="bg-white p-6 rounded-lg shadow-md min-h-[550px] flex flex-col">
-            <h2 className="mb-4 text-xl font-semibold">Chat</h2>
-            <div className="flex-1 p-4 overflow-y-auto rounded-lg max-h-96">
-              {messages.slice(-50).map((msg, index) => (
-                <div
-                  key={index}
-                  className={`mb-1 ${msg.isUser ? 'text-right ml-auto' : 'text-left mr-auto'}`}
-                >
+      // Clear the timeout if component unmounts or messages change
+      return () => clearTimeout(removeTimeout);
+    }
+  }, [messages]);
+
+  return (
+    <div className="flex items-center justify-center bg-slate-100" style={{ minHeight: 'calc(100vh - 4rem)' }}>
+      <div className="w-full max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-gray-300">
+          <Link to='/sessions' className="cursor-pointer next-page-triangle hover:scale-125"></Link>
+          <input
+            type="text"
+            placeholder="Search..."
+            className="w-1/3 px-4 py-2 border rounded-lg"
+          />
+        </div>
+
+        <div className="flex items-center justify-center flex-1 p-4">
+          <div className="grid w-full grid-cols-1 gap-8 lg:grid-cols-2">
+            {/* Chat Box */}
+            <div className="bg-white p-6 rounded-lg shadow-md min-h-[550px] flex flex-col">
+              <h2 className="mb-4 text-xl font-semibold">Chat</h2>
+              <div className="flex-1 p-4 overflow-y-auto rounded-lg max-h-96">
+                {messages.map((msg, index) => (
                   <div
-                    className={`inline-block px-3 py-2 break-words rounded-lg ${
-                      msg.isUser ? 'bg-slate-300' : 'bg-slate-100'
-                    }`}
-                    style={{ maxWidth: '80%' }}
+                    key={index}
+                    className={`mb-1 ${msg.isUser ? 'text-right ml-auto' : 'text-left mr-auto'}`}
                   >
-                    <p className="text-gray-800">{msg.text}</p>
+                    <div
+                      className={`inline-block px-3 py-2 break-words rounded-lg ${
+                        msg.isUser ? 'bg-slate-300' : 'bg-slate-100'
+                      }`}
+                      style={{ maxWidth: '80%' }}
+                    >
+                      <p className="text-gray-800">{msg.text}</p>
+                    </div>
+                    <small className="block mt-1 text-gray-500">
+                      {new Date(msg.timestamp).toLocaleTimeString()}
+                    </small>
                   </div>
-                  <small className="block mt-1 text-gray-500">
-                    {new Date(msg.timestamp).toLocaleTimeString()}
-                  </small>
-                </div>
-              ))}
-              <div ref={messagesEndRef} />
-            </div>
-
-            {/* Message Input */}
-            <div className="flex items-center mt-4">
-              <div className="flex items-center justify-center w-10 h-10 mr-2 transition-all duration-700 bg-gray-800 rounded-full cursor-pointer hover:scale-125">
-                <FaRegFile className="text-2xl text-white" />
+                ))}
+                <div ref={messagesEndRef} />
               </div>
-              <input
-                type="text"
-                placeholder="Ask a question to MyLegalAi"
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                className="flex-1 px-4 py-2 border rounded-lg"
-              />
-              <button
-                onClick={handleSendMessage}
-                className="flex items-center justify-center w-10 h-10 ml-1 text-white bg-gray-900 rounded-full hover:bg-slate-600"
-              >
-                <MdSend className="text-2xl" />
-              </button>
-            </div>
-          </div>
 
-          {/* Files Section */}
-          <div className="p-6 bg-white rounded-lg shadow-md">
-            <h2 className="mb-4 text-xl font-semibold">Files</h2>
-            <div className="space-y-4">
-              <div className="p-3 bg-gray-100 rounded-lg">File 1.pdf</div>
-              <div className="p-3 bg-gray-100 rounded-lg">File 2.docx</div>
-              <h2 className="mt-4 text-xl font-semibold">Actions</h2>
-              <div className="p-3 bg-gray-100 rounded-lg">Legal Action 2</div>
-              <div className="p-3 bg-gray-100 rounded-lg">Legal Action 3</div>
+              {/* Message Input */}
+              <div className="flex items-center mt-4">
+                <div className="flex items-center justify-center w-10 h-10 mr-2 transition-all duration-700 bg-gray-800 rounded-full cursor-pointer hover:scale-125">
+                  <FaRegFile className="text-2xl text-white" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Ask a question to MyLegalAi"
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  className="flex-1 px-4 py-2 border rounded-lg"
+                />
+                <button
+                  onClick={handleSendMessage}
+                  className="flex items-center justify-center w-10 h-10 ml-1 text-white bg-gray-900 rounded-full hover:bg-slate-600"
+                >
+                  <MdSend className="text-2xl" />
+                </button>
+              </div>
+            </div>
+
+            {/* Files Section */}
+            <div className="p-6 bg-white rounded-lg shadow-md">
+              <h2 className="mb-4 text-xl font-semibold">Files</h2>
+              <div className="space-y-4">
+                <div className="p-3 bg-gray-100 rounded-lg">File 1.pdf</div>
+                <div className="p-3 bg-gray-100 rounded-lg">File 2.docx</div>
+                <h2 className="mt-4 text-xl font-semibold">Actions</h2>
+                <div className="p-3 bg-gray-100 rounded-lg">Legal Action 2</div>
+                <div className="p-3 bg-gray-100 rounded-lg">Legal Action 3</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
 }

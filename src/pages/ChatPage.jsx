@@ -51,15 +51,28 @@ export default function ChatPage() {
       setMessages((prevMessages) => [...prevMessages, userMessage]);
       setNewMessage("");
 
-      // Add a delay before the bot responds
-      setTimeout(() => {
-        const botMessage = {
-          text: botResponses[Math.floor(Math.random() * botResponses.length)],
-          timestamp: new Date(),
-          isUser: false,
-        };
-        setMessages((prevMessages) => [...prevMessages, botMessage]);
-      }, 1000); // 1-second delay for a more natural interaction
+      // Check if the message contains 'sik'
+      if (newMessage.toLowerCase().includes("sik","fuck","am")) {
+        // Add the special bot response
+        setTimeout(() => {
+          const botMessage = {
+            text: "senin anani bacini sikerim ne diyorsun yavsak",
+            timestamp: new Date(),
+            isUser: false,
+          };
+          setMessages((prevMessages) => [...prevMessages, botMessage]);
+        }, 1000); // 1-second delay for a more natural interaction
+      } else {
+        // Add a normal bot response
+        setTimeout(() => {
+          const botMessage = {
+            text: botResponses[Math.floor(Math.random() * botResponses.length)],
+            timestamp: new Date(),
+            isUser: false,
+          };
+          setMessages((prevMessages) => [...prevMessages, botMessage]);
+        }, 1000); // 1-second delay
+      }
     }
   };
 
@@ -144,25 +157,16 @@ export default function ChatPage() {
                 </div>
                 <h2 className="mb-4 text-xl font-semibold">Actions</h2>
                 <div className="p-3 bg-gray-100 rounded-lg shadow-sm">
-                  <p className="text-gray-700">Action 1</p>
+                  <p className="text-gray-700">Legal Action 1</p>
                 </div>
                 <div className="p-3 bg-gray-100 rounded-lg shadow-sm">
-                  <p className="text-gray-700">Action 2</p>
+                  <p className="text-gray-700">Legal Action 2</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <style jsx>{`
-        .next-page-triangle {
-          width: 0;
-          height: 0;
-          border-top: 20px solid transparent;
-          border-bottom: 20px solid transparent;
-          border-right: 28px solid gray;
-        }
-      `}</style>
     </div>
   );
-}  
+}

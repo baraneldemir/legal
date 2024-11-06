@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate to programmatically navigate
+import { useNavigate } from 'react-router-dom';
+import './LandingPage.css';
 
 export default function LandingPage() {
   const [query, setQuery] = useState('');
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Track dropdown visibility
-  const [error, setError] = useState(''); // Track error message
-  const navigate = useNavigate(); // Initialize navigate function
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  // List of UK Courts
   const courts = [
     'Divorce / Family Law',
     'Civil Disputes',
@@ -16,18 +16,16 @@ export default function LandingPage() {
     'Criminal Law',
   ];
 
-  // Filter courts based on user query
   const filteredCourts = courts.filter(court =>
     court.toLowerCase().includes(query.toLowerCase())
   );
 
-  // Handle input focus and blur to show/hide dropdown
   const handleFocus = () => {
     setIsDropdownOpen(true);
   };
 
   const handleBlur = () => {
-    setTimeout(() => { setIsDropdownOpen(false); }, 100); // Delay to allow click on dropdown item
+    setTimeout(() => { setIsDropdownOpen(false); }, 100);
   };
 
   const handleClear = () => {
@@ -39,19 +37,19 @@ export default function LandingPage() {
       setError('Please select or enter a court option to proceed.');
     } else {
       setError('');
-      navigate('/sessions'); // Navigate only if query is valid
+      navigate('/sessions');
     }
   };
 
   return (
     <div className="flex items-center justify-center bg-slate-100" style={{ minHeight: 'calc(100vh - 4rem)' }}>
-      <div className="w-full sm:w-3/4 md:w-1/2 px-4">
+      <div className="w-full px-4 sm:w-3/4 md:w-1/2">
+        
 
-        <label className="block mb-2 text-center font-medium">
+        <label className="block m-3 font-medium text-center">
           Enter a brief description of your legal question or choose court manually
         </label>
         
-
         <div className="relative mb-4"> 
           <input
             type="text"
@@ -60,32 +58,30 @@ export default function LandingPage() {
             onFocus={handleFocus}  
             onBlur={handleBlur}    
             placeholder="e.g., 'I want to take a case to court' or 'Which court should I file my claim?'"
-            className="rounded-xl px-4 py-2 w-full text-gray-700 border border-gray-300 focus:outline-none focus:border-blue-500 transition duration-300 ease-in-out pr-10"  // Added padding for the clear button
+            className="w-full px-4 py-2 pr-10 text-gray-700 transition duration-300 ease-in-out border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
           />
           
-     
           {query && (
             <button
               type="button"
               onClick={handleClear}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 text-gray-600 hover:text-gray-900 rounded-full p-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="absolute p-1 text-gray-600 transform -translate-y-1/2 bg-gray-200 rounded-full right-2 top-1/2 hover:bg-gray-300 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           )}
         </div>
 
-
         {isDropdownOpen && (
-          <div className="absolute left-0 right-0 mt-1 mx-3 bg-white border border-gray-300 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto sm:w-full md:w-auto">
+          <div className="absolute left-0 right-0 z-10 mx-3 mt-1 overflow-y-auto bg-white border border-gray-300 shadow-lg rounded-xl max-h-60 sm:w-full md:w-auto">
             <ul>
               {filteredCourts.length > 0 ? (
                 filteredCourts.map((court, index) => (
                   <li
                     key={index}
-                    className="px-4 py-2 text-gray-700 hover:bg-gray-200 cursor-pointer"
+                    className="px-4 py-2 text-gray-700 cursor-pointer hover:bg-gray-200"
                     onClick={() => {
                       setQuery(court);
                       setIsDropdownOpen(false); 
@@ -101,11 +97,9 @@ export default function LandingPage() {
           </div>
         )}
 
-
         {error && (
-          <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
+          <p className="mt-2 text-sm text-center text-red-500">{error}</p>
         )}
-
 
         <div className="flex justify-end mt-4">
           <button

@@ -13,34 +13,34 @@ export default function SessionsPage() {
   return (
     <div className="flex flex-col min-h-screen bg-slate-100">
     
-      <div className="flex justify-between items-center p-4  border-b border-gray-300 max-w-4xl mx-auto w-full">
+      <div className="flex items-center justify-between w-full max-w-4xl p-4 mx-auto border-b border-gray-300">
         
         <input
           type="text"
           placeholder="Search..."
-          className="border border-gray-300 rounded-lg px-4 py-2 w-1/3"
+          className="w-1/3 px-4 py-2 border border-gray-300 rounded-lg"
         />
       </div>
 
       
-      <div className="flex-1 flex justify-center items-center">
+      <div className="flex items-center justify-center flex-1">
         <div className="w-full max-w-4xl p-4">
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-semibold">Active Sessions</h2>
-            <Link to='/chat' className="bg-gray-800 hover:bg-slate-700 text-white rounded-lg shadow-xl transition duration-200 px-4 py-2">
+            <Link to='/chat' className="px-4 py-2 text-white transition duration-200 bg-gray-800 rounded-lg shadow-xl hover:bg-slate-700">
               Create New Session
             </Link>
           </div>
           <div className="grid grid-cols-1 gap-4">
             
             {Sessions.map((session) => (
-              <div key={session.id} className="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+              <div key={session.id} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md">
                 <div>
                   <h3 className="font-medium">{session.name}</h3>
                   <p className="text-sm text-gray-500">{session.details}</p>
                 </div>
                 
-                <Link to='/chat' className="next-page-triangle cursor-pointer"></Link>
+                <Link to='/chat' className="cursor-pointer next-page-triangle hover:scale-150 "></Link>
               </div>
             ))}
           </div>
@@ -48,17 +48,17 @@ export default function SessionsPage() {
       </div>
 
 
-      <div className=" p-4 border-t border-gray-300 max-w-4xl mx-auto w-full">
-        <h2 className="text-2xl font-semibold text-center mb-2">Archived Sessions ({Sessions.length})</h2>
-        <div className="flex overflow-x-auto gap-4">
+      <div className="w-full max-w-4xl p-4 mx-auto border-t border-gray-300 ">
+        <h2 className="mb-2 text-2xl font-semibold text-center">Archived Sessions ({Sessions.length})</h2>
+        <div className="flex gap-4 overflow-x-auto">
           {Sessions.map((session) => (
-            <div key={session.id} className="bg-gray-100 p-4 rounded-lg shadow-md flex justify-between items-center">
+            <div key={session.id} className="flex items-center justify-between p-4 bg-gray-100 rounded-lg shadow-md">
               <div>
                 <h3 className="font-medium">{session.name}</h3>
                 <p className="text-sm text-gray-500">{session.details}</p>
               </div>
               
-              <Link to='/chat' className="next-page-triangle cursor-pointer"></Link>
+              <Link to='/chat' className="cursor-pointer next-page-triangle hover:scale-150"></Link>
             </div>
           ))}
         </div>
@@ -69,9 +69,9 @@ export default function SessionsPage() {
         .next-page-triangle {
           width: 0;
           height: 0;
-          border-top: 8px solid transparent;
-          border-bottom: 8px solid transparent;
-          border-left: 12px solid gray;
+          border-top: 10px solid transparent;
+          border-bottom: 10px solid transparent;
+          border-left: 14px solid gray;
         }
       `}</style>
     </div>

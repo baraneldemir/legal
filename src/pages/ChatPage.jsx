@@ -33,13 +33,29 @@ export default function ChatPage() {
   ];
 
   const filteredBotResponses = [
-    "Senin agzina sicarim sus lan amk npcsi",
+    "I'll shut your mouth, you dirty bastard.",
     "Please refrain from using inappropriate language. I'm here to help with legal matters.",
-    "olum bak seni yogurtlaya...",
-    "yeter olum ne kufur bu.",
-    "sus lan",
-    "konumunu biliyorum kardesim atlayip gelirim bak hemen agzini topla"
-  ];
+    "You better watch out, I'll give you a piece of my mind.",
+    "Enough with the swearing already.",
+    "Shut up, idiot.",
+    "I know where you live, watch your mouth.",
+    "If I had a dollar for every swear word, I’d be richer than you, pal.",
+    "Did you say something? Oh wait, it was just a fart in words.",
+    "If you don’t stop cursing, I’ll turn this chat into a library. No swearing allowed.",
+    "What’s with the foul mouth? Did you just come from a pirate ship?",
+    "I’m here for legal advice, not a stand-up comedy show—stop cussing!",
+    "Hey, let’s keep it PG-13 here. I’m not your mom, but I’m definitely telling you off!",
+    "Watch it, or I'll slap a ‘Warning: Explicit Content’ sticker on this chat.",
+    "I can’t process that much negativity. Do you need a nap or something?",
+    "I’m a legal bot, not a punching bag for your bad mood!",
+    "You’ve got more swear words than a sailor on shore leave!",
+    "Come on, it's not even a Monday—chill out, buddy.",
+    "If I wanted to hear that much swearing, I’d watch a reality TV show.",
+    "Take it easy! I'm not the one who gets paid to deal with this stuff.",
+    "Is there a swear word contest happening? Because you're definitely winning!"
+];
+
+
 
   // Reference to the message container to scroll it into view
   const messagesEndRef = useRef(null);

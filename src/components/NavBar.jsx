@@ -23,10 +23,10 @@ export default function NavBar() {
 
 
         <div className="hidden md:flex space-x-8 text-white">
-          <Link to="/about" className="hover:scale-110 transition-colors duration-200">About</Link>
-          <Link to="/services" className="hover:scale-110 transition-colors duration-200">Services</Link>
-          <Link to="/contact" className="hover:scale-110 transition-colors duration-200">Contact</Link>
-          <Link to="/settings" className="hover:scale-110 transition-colors duration-200">Settings</Link>
+          <Link to="/" className="hover:scale-110 transition-colors duration-200">About</Link>
+          <Link to="/" className="hover:scale-110 transition-colors duration-200">Services</Link>
+          <Link to="/" className="hover:scale-110 transition-colors duration-200">Contact</Link>
+          <Link to="/" className="hover:scale-110 transition-colors duration-200">Settings</Link>
           <button onClick={toggleDarkMode} className="hover:scale-150 bg-white text-gray-800 rounded-xl px-1 hover:bg-gray-200">
             {darkMode ? '🌞' : '🌙'}
           </button>
@@ -54,10 +54,10 @@ export default function NavBar() {
           </button>
         </div>
         <div className="flex flex-col p-4 space-y-4 text-white">
-          <Link to="/about" className="hover:scale-110 transition-colors duration-200" onClick={toggleSidebar}>About</Link>
-          <Link to="/services" className="hover:scale-110 transition-colors duration-200" onClick={toggleSidebar}>Services</Link>
-          <Link to="/contact" className="hover:scale-110 transition-colors duration-200" onClick={toggleSidebar}>Contact</Link>
-          <Link to="/settings" className="hover:scale-110 transition-colors duration-200" onClick={toggleSidebar}>Settings</Link>
+          <Link to="/" className="hover:scale-110 transition-colors duration-200" onClick={toggleSidebar}>About</Link>
+          <Link to="/" className="hover:scale-110 transition-colors duration-200" onClick={toggleSidebar}>Services</Link>
+          <Link to="/" className="hover:scale-110 transition-colors duration-200" onClick={toggleSidebar}>Contact</Link>
+          <Link to="/" className="hover:scale-110 transition-colors duration-200" onClick={toggleSidebar}>Settings</Link>
           
         </div>
       </div>

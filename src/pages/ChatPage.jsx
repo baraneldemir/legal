@@ -65,8 +65,11 @@ export default function ChatPage() {
 
   // Scroll to the bottom whenever messages are updated
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    // Scroll to the bottom of the message container when messages change
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }, [messages]); // Triggered when messages array changes
 
   return (
     <div className="flex flex-col bg-slate-100" style={{ minHeight: 'calc(100vh - 4rem)' }}>

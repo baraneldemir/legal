@@ -221,10 +221,10 @@ export default function ChatPage() {
                 </div>
                 <h2 className="mb-4 text-xl font-semibold">Actions</h2>
                 <div className="p-3 bg-gray-100 rounded-lg shadow-sm">
-                  <p className="text-gray-700">Legal Action 1</p>
+                  <p className="text-gray-700">Legal Action 2</p>
                 </div>
                 <div className="p-3 bg-gray-100 rounded-lg shadow-sm">
-                  <p className="text-gray-700">Legal Action 2</p>
+                  <p className="text-gray-700">Legal Action 3</p>
                 </div>
               </div>
             </div>

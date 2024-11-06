@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import { MdSend } from "react-icons/md";
+import { FaRegFile } from "react-icons/fa";
 
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);
@@ -189,7 +190,7 @@ export default function ChatPage() {
                   className="flex items-center justify-center w-10 h-10 mr-2 transition-all duration-700 bg-gray-800 rounded-full cursor-pointer hover:scale-125"
                 >
                   <input {...getInputProps()} />
-                  <span className="text-white">🗂️</span>
+                  <FaRegFile className="text-2xl text-white" />
                 </div>
                 <input
                   type="text"

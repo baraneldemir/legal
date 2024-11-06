@@ -122,7 +122,7 @@ export default function ChatPage() {
           <input
             type="text"
             placeholder="Search..."
-            className="w-1/3 px-4 py-2 border rounded-lg"
+            className="w-1/3 px-4 py-2 border rounded-lg outline-1 outline-gray-800"
           />
         </div>
 
@@ -163,7 +163,7 @@ export default function ChatPage() {
                   placeholder="Ask a question to MyLegalAi"
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
-                  className="flex-1 px-4 py-2 border rounded-lg"
+                  className="flex-1 px-4 py-2 border rounded-lg outline-1 outline-gray-800"
                 />
                 <button
                   onClick={handleSendMessage}
@@ -188,6 +188,15 @@ export default function ChatPage() {
           </div>
         </div>
       </div>
+      <style jsx>{`
+        .next-page-triangle {
+          width: 0;
+          height: 0;
+          border-top: 20px solid transparent;
+          border-bottom: 20px solid transparent;
+          border-right: 28px solid gray;
+        }
+      `}</style>
     </div>
   );
 }

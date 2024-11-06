@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDropzone } from 'react-dropzone';
 import { MdSend } from "react-icons/md";
 import { FaRegFile } from "react-icons/fa";
 
@@ -118,24 +117,6 @@ export default function ChatPage() {
   }, [messages]); // Triggered when messages array changes
 
 
-  const onDrop = (acceptedFiles) => {
-    // You can handle the uploaded files here
-    // For now, we will just display their names
-    acceptedFiles.forEach(file => {
-      const fileMessage = {
-        text: `File received, further questions will be answered according to: ${file.name}`,
-        timestamp: new Date(),
-        isUser: false,
-      };
-      setMessages(prevMessages => [...prevMessages, fileMessage]);
-    });
-  };
-
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop, // Set the onDrop handler to handle dropped files
-    accept: '.pdf,.docx,.jpg,.png', // Acceptable file types
-    multiple: false, // Disable multiple file drops if desired
-  });
 
   return (
     <div className="flex flex-col bg-slate-100" style={{ minHeight: 'calc(100vh - 4rem)' }}>
@@ -186,10 +167,10 @@ export default function ChatPage() {
   
               <div className="flex items-center mt-4">
               <div
-                  {...getRootProps()} // Drag and drop area
+                   // Drag and drop area
                   className="flex items-center justify-center w-10 h-10 mr-2 transition-all duration-700 bg-gray-800 rounded-full cursor-pointer hover:scale-125"
                 >
-                  <input {...getInputProps()} />
+                  
                   <FaRegFile className="text-2xl text-white" />
                 </div>
                 <input

@@ -32,11 +32,14 @@ export default function ChatPage() {
     "Remember: A contract is only as good as the parties involved—unless it’s a pizza contract. That’s solid gold in my book!"
   ];
 
-  const specialResponses = {
-    "sik": "Let's keep the conversation respectful, please.",
-    "fuck": "Please refrain from using inappropriate language. I'm here to help with legal matters.",
-    "am": "It seems like you're unsure. Feel free to ask for clarification on any legal question."
-  };
+  const filteredBotResponses = [
+    "Senin agzina sicarim sus lan amk npcsi",
+    "Please refrain from using inappropriate language. I'm here to help with legal matters.",
+    "olum bak seni yogurtlaya...",
+    "yeter olum ne kufur bu.",
+    "sus lan",
+    "konumunu biliyorum kardesim atlayip gelirim bak hemen agzini topla"
+  ];
 
   // Reference to the message container to scroll it into view
   const messagesEndRef = useRef(null);
@@ -62,7 +65,7 @@ export default function ChatPage() {
         // Add the special bot response
         setTimeout(() => {
           const botMessage = {
-            text: "senin anani bacini sikerim ne diyorsun yavsak",
+            text: filteredBotResponses[Math.floor(Math.random() * filteredBotResponses.length)],
             timestamp: new Date(),
             isUser: false,
           };

@@ -60,8 +60,12 @@ export default function ChatPage() {
       setMessages((prevMessages) => [...prevMessages, userMessage]);
       setNewMessage("");
 
-      // Check if the message contains 'sik'
-      if (newMessage.toLowerCase().includes("sik","fuck")) {
+      // Offensive words list
+      const offensiveWords = ["sik", "fuck"];
+      
+      // Check if the message contains any of the offensive words
+      const containsOffensiveWord = offensiveWords.some(word => newMessage.toLowerCase().includes(word));
+      if (containsOffensiveWord) {
         // Add the special bot response
         setTimeout(() => {
           const botMessage = {

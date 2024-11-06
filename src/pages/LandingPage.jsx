@@ -44,13 +44,11 @@ export default function LandingPage() {
   return (
     <div className="flex items-center justify-center bg-slate-100" style={{ minHeight: 'calc(100vh - 4rem)' }}>
       <div className="w-full px-4 sm:w-3/4 md:w-1/2">
-        
-
         <label className="block m-3 font-medium text-center">
           Enter a brief description of your legal question or choose court manually
         </label>
         
-        <div className="relative mb-4"> 
+        <div className="relative mb-2"> 
           <input
             type="text"
             value={query}
@@ -75,7 +73,7 @@ export default function LandingPage() {
         </div>
 
         {isDropdownOpen && (
-          <div className="absolute left-0 right-0 z-10 mx-3 mt-1 overflow-y-auto bg-white border border-gray-300 shadow-lg rounded-xl max-h-60 sm:w-full md:w-auto">
+          <div className="absolute z-10 overflow-y-auto bg-white border border-gray-300 shadow-lg rounded-xl ">
             <ul>
               {filteredCourts.length > 0 ? (
                 filteredCourts.map((court, index) => (

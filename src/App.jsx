@@ -5,12 +5,17 @@ import LandingPage from './pages/LandingPage';
 import SessionsPage from './pages/SessionsPage';
 import NavBar from './components/NavBar';
 import ChatPage from './pages/ChatPage';
+import { useState } from "react";
+import { getUser } from './utilities/users-service';
 
 
 function App() {
+
+  const [user, setUser] = useState(getUser())
+
   return (
     <div >
-      <NavBar/>
+      <NavBar user={user} setUser={setUser}/>
       
       <Routes>
         <Route path="/" element={<LandingPage/>}/>
